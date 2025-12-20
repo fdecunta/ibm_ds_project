@@ -1,0 +1,7 @@
+jupyter
+pandas
+matplotlib
+seaborn
+duckdb
+duckdb-engine
+beautifulsoup4
