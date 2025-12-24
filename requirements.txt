@@ -1,4 +1,3 @@
-jupyter
 pandas
 matplotlib
 seaborn
@@ -7,3 +6,6 @@ duckdb-engine
 beautifulsoup4
 httpx
 folium
+wget
+jupyterlab
+jupyterlab-vim
