@@ -6,3 +6,4 @@ duckdb
 duckdb-engine
 beautifulsoup4
 httpx
+folium
