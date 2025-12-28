@@ -11,3 +11,4 @@ jupyterlab
 jupyterlab-vim
 dash
 scikit-learn
+graphviz
