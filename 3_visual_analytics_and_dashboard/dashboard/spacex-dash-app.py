@@ -30,7 +30,8 @@ app.layout = html.Div(children=[html.H1('SpaceX Launch Records Dashboard',
                                         {'label': 'CCAFS SLC-40', 'value': 'CCAFS SLC-40'}
                                     ],
                                     placeholder='Select a Launch Site here',
-                                    searchable=True
+                                    searchable=True,
+                                    value='ALL'
                                 ),
                                 html.Br(),
 
@@ -80,7 +81,40 @@ def get_pie_chart(entered_site):
 
 # TASK 4:
 # Add a callback function for `site-dropdown` and `payload-slider` as inputs, `success-payload-scatter-chart` as output
+@app.callback(
+        Output(component_id='success-payload-scatter-chart', component_property='figure'),
+        [
+            Input(component_id='site-dropdown', component_property='value'),
+            Input(component_id="payload-slider", component_property="value")
+        ]
+)
+def get_scatter(site, payload):
 
+    min_payload, max_payload = payload
+
+    filtered_df = spacex_df[
+            (spacex_df['Payload Mass (kg)'] >= min_payload) & (spacex_df['Payload Mass (kg)'] <= max_payload)
+            ]
+
+    if site == 'ALL':
+        fig = px.scatter(
+                filtered_df,
+                x='Payload Mass (kg)',
+                y='class',
+                color='Booster Version Category',
+                title="Correlation between Payload and Success for all sites"
+        )
+    else:
+        filtered_df = filtered_df[filtered_df['Launch Site'] == site]
+        fig = px.scatter(
+                filtered_df,
+                x='Payload Mass (kg)',
+                y='class',
+                color='Booster Version Category',
+                title=f"Correlation between Payload and Success for {site}"
+        )
+
+    return fig
 
 # Run the app
 if __name__ == '__main__':
